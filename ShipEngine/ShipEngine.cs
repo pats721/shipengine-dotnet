@@ -481,5 +481,43 @@ namespace ShipEngineSDK
 
             return labelResult;
         }
+
+        /// <summary>
+        /// Retrieve rates for a package with the provided shipment id.
+        /// </summary>
+        /// <param name="rateParams"></param>
+        /// <returns>The rates result</returns>
+        public async Task<GetRatesByShipmentID.Result> GetRatesByShipmentID(GetRatesByShipmentID.Params rateParams)
+        {
+            var path = "/v1/rates";
+
+            string paramString = JsonConvert.SerializeObject(rateParams, JsonSerializerSettings);
+
+            var labelResult = await SendHttpRequestAsync<GetRatesByShipmentID.Result>(HttpMethod.Post, path, paramString, _client, _config);
+
+            return labelResult;
+        }
+
+        /// <summary>
+        /// Retrieve rates for a package with the provided shipment id.
+        /// </summary>
+        /// <param name="rateParams"></param>
+        /// <param name="methodConfig">Configuration object that overrides the global config for this method call</param>
+        /// <returns>The rates result</returns>
+        public async Task<GetRatesByShipmentID.Result> GetRatesByShipmentID(GetRatesByShipmentID.Params rateParams, Config methodConfig)
+        {
+            var client = ConfigureHttpClient(methodConfig, new HttpClient());
+
+            var path = "/v1/rates";
+
+            string paramString = JsonConvert.SerializeObject(rateParams, JsonSerializerSettings);
+
+            var labelResult = await SendHttpRequestAsync<GetRatesByShipmentID.Result>(HttpMethod.Post, path, paramString, client, methodConfig);
+
+            client.Dispose();
+
+            return labelResult;
+        }
+
     }
 }
