@@ -413,7 +413,7 @@ namespace ShipEngineSDK
         public async Task<CreateShipments.Result> CreateShipments(CreateShipments.Params shipmentParams)
         {
 
-            string shipmentParamsString = JsonConvert.SerializeObject(shipmentParams.Shipments, JsonSerializerSettings);
+            string shipmentParamsString = JsonConvert.SerializeObject(shipmentParams, JsonSerializerSettings);
 
             var path = $"/v1/shipments";
 
@@ -433,7 +433,7 @@ namespace ShipEngineSDK
 
             var client = ConfigureHttpClient(methodConfig, new HttpClient());
 
-            string shipmentParamsString = JsonConvert.SerializeObject(shipmentParams.Shipments, JsonSerializerSettings);
+            string shipmentParamsString = JsonConvert.SerializeObject(shipmentParams, JsonSerializerSettings);
 
             var path = $"/v1/shipments";
 
@@ -513,6 +513,43 @@ namespace ShipEngineSDK
             string paramString = JsonConvert.SerializeObject(rateParams, JsonSerializerSettings);
 
             var labelResult = await SendHttpRequestAsync<GetRatesByShipmentID.Result>(HttpMethod.Post, path, paramString, client, methodConfig);
+
+            client.Dispose();
+
+            return labelResult;
+        }
+
+        /// <summary>
+        /// Retrieve rates for a package with the provided shipment id.
+        /// </summary>
+        /// <param name="rateParams"></param>
+        /// <returns>The rates result</returns>
+        public async Task<GetRatesByShipmentID.RateResponse> GetRatesByShipmentID(string ShipID)
+        {
+            var path = $"/v1/shipments/{ShipID}/rates";
+
+            string paramString = string.Empty;
+
+            var labelResult = await SendHttpRequestAsync<GetRatesByShipmentID.RateResponse>(HttpMethod.Get, path, null, _client, _config);
+
+            return labelResult;
+        }
+
+        /// <summary>
+        /// Retrieve rates for a package with the provided shipment id.
+        /// </summary>
+        /// <param name="rateParams"></param>
+        /// <param name="methodConfig">Configuration object that overrides the global config for this method call</param>
+        /// <returns>The rates result</returns>
+        public async Task<GetRatesByShipmentID.RateResponse> GetRatesByShipmentID(string ShipID, Config methodConfig)
+        {
+            var client = ConfigureHttpClient(methodConfig, new HttpClient());
+
+            var path = $"/v1/shipments/{ShipID}/rates";
+
+            string paramString = string.Empty;
+
+            var labelResult = await SendHttpRequestAsync<GetRatesByShipmentID.RateResponse>(HttpMethod.Get, path, null, client, methodConfig);
 
             client.Dispose();
 
