@@ -160,6 +160,7 @@ namespace ShipEngineTest
             Assert.Null(result.AdvancedOptions.BillToParty);
             Assert.Null(result.AdvancedOptions.BillToPostalCode);
             Assert.False(result.AdvancedOptions.ContainsAlcohol);
+            Assert.False(result.AdvancedOptions.AdditionalHandling);
             Assert.False(result.AdvancedOptions.DeliveredDutyPaid);
             Assert.False(result.AdvancedOptions.NonMachinable);
             Assert.False(result.AdvancedOptions.SaturdayDelivery);

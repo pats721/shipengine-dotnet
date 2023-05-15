@@ -109,5 +109,10 @@ namespace ShipEngineSDK.Common
         /// Defer payment until package is delivered, instead of when it is ordered.
         /// </summary>
         public CollectOnDelivery? CollectOnDelivery { get; set; }
+
+        /// <summary>
+        /// This shipment requires Additional Handling
+        /// </summary>
+        public bool? AdditionalHandling { get; set; }
     }
 }
